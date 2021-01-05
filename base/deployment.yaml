@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shvydkyyv-testrun-deployment
+  labels:
+    app: shvydkyyv-testrun
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shvydkyyv-testrun
+  template:
+    metadata:
+      labels:
+        app: shvydkyyv-testrun
+      annotations:
+        sidecar.istio.io/rewriteAppHTTPProbers: "true"
+    spec:
+      containers:
+      - name: testrun
+        image: shvydkyyv/testrun:latest
+        env:
+        - name: "AIRWAVE_HW_PORT"
+          valueFrom:
+            configMapKeyRef:
+              name: testrun-configmap
+              key: AIRWAVE_HW_PORT
+        ports:
+        - containerPort: 4998
+          name: liveness-port
+        livenessProbe:
+          httpGet:
+            path: /
+            port: liveness-port
+          initialDelaySeconds: 3
+          periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /
+            port: liveness-port
+          initialDelaySeconds: 3
+          periodSeconds: 5
