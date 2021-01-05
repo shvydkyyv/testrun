@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: shvydkyyv-testrun-svc
+  labels:
+    app: shvydkyyv-testrun
+spec:
+  ports:
+  - name: http
+    port: 4997
+    targetPort: 4998
+  selector:
+    app: shvydkyyv-testrun
