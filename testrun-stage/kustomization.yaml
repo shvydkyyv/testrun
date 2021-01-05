@@ -1,0 +1,12 @@
+bases:
+  - ../base
+namespace: testrun-stage
+patches:
+  - target: 
+      kind: Service
+      name: shvydkyyv-testrun-svc
+    path: service.yaml
+  - target:
+      kind: ConfigMap
+      name: testrun-configmap
+    path: configmap.yaml
